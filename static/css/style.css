@@ -1,0 +1,133 @@
+:root {
+    --neon-pink: #ff2e6d;
+    --neon-blue: #00fff9;
+    --neon-purple: #9d4edd;
+    --cyber-black: #0a0a0a;
+    --cyber-dark: #1a1a1a;
+}
+
+body {
+    background-color: var(--cyber-black);
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.cyberpunk-bg {
+    background: linear-gradient(45deg, var(--cyber-black) 0%, var(--cyber-dark) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-card {
+    background: rgba(26, 26, 26, 0.95);
+    border: 2px solid var(--neon-blue);
+    border-radius: 5px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 255, 249, 0.2);
+}
+
+.cyber-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+}
+
+.neon-text {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.cyber-label {
+    color: var(--neon-blue);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.cyber-input {
+    background: var(--cyber-dark);
+    border: 1px solid var(--neon-blue);
+    color: #fff;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.cyber-button {
+    background: transparent;
+    border: 2px solid var(--neon-pink);
+    color: var(--neon-pink);
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cyber-button:hover {
+    background: var(--neon-pink);
+    color: var(--cyber-black);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+.password-list {
+    margin-top: 2rem;
+}
+
+.password-item {
+    background: var(--cyber-dark);
+    border: 1px solid var(--neon-purple);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.password-item:hover {
+    background: rgba(157, 78, 221, 0.1);
+    transform: translateX(5px);
+}
+
+.entropy-meter {
+    height: 10px;
+    background: var(--cyber-dark);
+    border: 1px solid var(--neon-blue);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.entropy-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    transition: width 0.5s ease;
+}
+
+.entropy-text {
+    color: var(--neon-blue);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}

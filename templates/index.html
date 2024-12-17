@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Password Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="cyberpunk-bg">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="cyber-card">
+                    <h1 class="cyber-title text-center mb-4">
+                        <span class="neon-text">CYBER</span>PASS
+                    </h1>
+                    
+                    <div class="controls-section mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="cyber-label">Word Count</label>
+                                <input type="number" id="wordCount" class="cyber-input" min="1" max="5" value="3">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="cyber-label">Number of Passwords</label>
+                                <input type="number" id="passwordCount" class="cyber-input" min="1" max="100" value="5">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="cyber-label">Min Word Length</label>
+                                <input type="number" id="minLength" class="cyber-input" min="3" max="15" value="4">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="cyber-label">Max Word Length</label>
+                                <input type="number" id="maxLength" class="cyber-input" min="3" max="15" value="8">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="cyber-label">Delimiter</label>
+                                <select id="delimiter" class="cyber-input">
+                                    <option value="-">-</option>
+                                    <option value="_">_</option>
+                                    <option value=".">.</option>
+                                    <option value="#">#</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="generateBtn" class="cyber-button mb-4">
+                        <span class="cyber-button-text">GENERATE</span>
+                    </button>
+
+                    <div id="passwordList" class="password-list"></div>
+
+                    <div id="statsSection" class="stats-section mt-4">
+                        <div class="entropy-meter">
+                            <div class="entropy-bar"></div>
+                        </div>
+                        <p class="entropy-text">Password Entropy: <span id="entropyValue">0</span> bits</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='data/scrabble_words.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/password_generator.js') }}"></script>
+</body>
+</html>
