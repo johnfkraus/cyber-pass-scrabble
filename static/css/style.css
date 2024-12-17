@@ -1,29 +1,45 @@
 :root {
+    /* Common colors */
     --neon-pink: #ff2e6d;
     --neon-blue: #00fff9;
     --neon-purple: #9d4edd;
-    --cyber-black: #0a0a0a;
-    --cyber-dark: #1a1a1a;
+    
+    /* Dark theme (default) */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: #cccccc;
+    --border-color: var(--neon-blue);
+}
+
+:root[data-theme="light"] {
+    --bg-primary: #f0f0f0;
+    --bg-secondary: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --border-color: var(--neon-purple);
 }
 
 body {
-    background-color: var(--cyber-black);
-    color: #fff;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Segoe UI', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .cyberpunk-bg {
-    background: linear-gradient(45deg, var(--cyber-black) 0%, var(--cyber-dark) 100%);
+    background: linear-gradient(45deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     position: relative;
     overflow: hidden;
 }
 
 .cyber-card {
-    background: rgba(26, 26, 26, 0.95);
-    border: 2px solid var(--neon-blue);
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
     padding: 2rem;
     box-shadow: 0 0 20px rgba(0, 255, 249, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .cyber-title {
@@ -153,6 +169,41 @@ body {
 
 @keyframes shimmer {
     0% { transform: translateX(-100%); }
+.cyber-button-small {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cyber-button-small:hover {
+    background: var(--border-color);
+    color: var(--bg-primary);
+    box-shadow: 0 0 15px var(--border-color);
+}
+
+.theme-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+}
     100% { transform: translateX(100%); }
 }
 

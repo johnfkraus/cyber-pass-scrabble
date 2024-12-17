@@ -89,10 +89,42 @@ function addGlitchEffect(element) {
 
 let particleSystem;
 
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    
+    root.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = root.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        root.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        
+        // Add glitch animation on theme change
+        themeToggle.style.animation = 'glitch 0.3s';
+        setTimeout(() => themeToggle.style.animation = '', 300);
+    });
+}
+
+function updateThemeIcon(theme) {
+    const themeIcon = document.querySelector('.theme-icon');
+    themeIcon.innerHTML = theme === 'dark' 
+        ? '🌙' 
+        : '☀️';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize particle system
     const entropyMeter = document.querySelector('.entropy-meter');
     particleSystem = new ParticleSystem(entropyMeter);
+    
+    // Initialize theme toggle
+    initThemeToggle();
     
     // Add glitch effect to cyber-title
     const title = document.querySelector('.cyber-title');
