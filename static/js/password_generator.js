@@ -2,6 +2,13 @@ class PasswordGenerator {
     constructor() {
         this.bindElements();
         this.attachEventListeners();
+        this.initMatrixRain();
+    }
+
+    initMatrixRain() {
+        const canvas = document.getElementById('matrixCanvas');
+        this.matrixRain = new MatrixRain(canvas);
+        this.matrixRain.start();
     }
 
     bindElements() {
@@ -124,7 +131,7 @@ class PasswordGenerator {
         }
     }
 
-    generatePasswords() {
+    async generatePasswords() {
         const wordCount = parseInt(this.wordCountInput.value);
         const passwordCount = parseInt(this.passwordCountInput.value);
         const minLength = parseInt(this.minLengthInput.value);
@@ -132,6 +139,9 @@ class PasswordGenerator {
         const delimiter = this.delimiterInput.value;
 
         this.passwordList.innerHTML = '';
+        
+        // Intensify matrix rain effect during generation
+        this.matrixRain.characters = 'ABCDEF0123456789';
         
         for (let i = 0; i < passwordCount; i++) {
             const words = [];
@@ -150,6 +160,10 @@ class PasswordGenerator {
             `;
             
             this.passwordList.appendChild(passwordElement);
+            
+            // Morph matrix effect to show the password
+            await this.matrixRain.morphText(password);
+            
             this.updateEntropyMeter(entropy);
         }
 
