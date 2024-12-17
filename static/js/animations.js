@@ -1,3 +1,56 @@
+class ParticleSystem {
+    constructor(container) {
+        this.container = container;
+        this.particles = [];
+        this.init();
+    }
+
+    init() {
+        this.container.style.position = 'relative';
+        this.container.style.overflow = 'hidden';
+    }
+
+    createParticle(x, strength) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: ${strength > 80 ? 'var(--neon-blue)' : 'var(--neon-pink)'};
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            left: ${x}px;
+            bottom: 0;
+        `;
+        
+        this.container.appendChild(particle);
+        return particle;
+    }
+
+    animate(strength) {
+        const x = Math.random() * this.container.offsetWidth;
+        const particle = this.createParticle(x, strength);
+        
+        const animation = particle.animate([
+            { transform: 'translateY(0) scale(1)', opacity: 0.8 },
+            { transform: `translateY(-${50 + Math.random() * 50}px) scale(0)`, opacity: 0 }
+        ], {
+            duration: 1000 + Math.random() * 1000,
+            easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+        });
+        
+        animation.onfinish = () => particle.remove();
+    }
+
+    startEmitting(strength) {
+        const particleCount = Math.floor(strength / 10);
+        for (let i = 0; i < particleCount; i++) {
+            setTimeout(() => this.animate(strength), Math.random() * 1000);
+        }
+    }
+}
+
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.className = 'cyber-notification';
@@ -12,6 +65,8 @@ function showNotification(message) {
         padding: 1rem 2rem;
         border-radius: 5px;
         animation: slideIn 0.3s ease-out;
+        z-index: 1000;
+        box-shadow: 0 0 20px var(--neon-blue);
     `;
 
     document.body.appendChild(notification);
@@ -32,7 +87,13 @@ function addGlitchEffect(element) {
     });
 }
 
+let particleSystem;
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize particle system
+    const entropyMeter = document.querySelector('.entropy-meter');
+    particleSystem = new ParticleSystem(entropyMeter);
+    
     // Add glitch effect to cyber-title
     const title = document.querySelector('.cyber-title');
     addGlitchEffect(title);
@@ -47,4 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.style.transform = 'translateY(0)';
         });
     });
+
+    // Expose particleSystem globally for use in password_generator.js
+    window.particleSystem = particleSystem;
 });

@@ -102,25 +102,63 @@ body {
 }
 
 .entropy-meter {
-    height: 10px;
+    height: 15px;
     background: var(--cyber-dark);
-    border: 1px solid var(--neon-blue);
-    border-radius: 5px;
+    border: 2px solid var(--neon-blue);
+    border-radius: 8px;
     overflow: hidden;
     margin-bottom: 1rem;
+    position: relative;
+    box-shadow: 0 0 15px rgba(0, 255, 249, 0.3);
 }
 
 .entropy-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
-    transition: width 0.5s ease;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+    background-size: 200% 100%;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: gradientFlow 2s linear infinite;
+    position: relative;
+}
+
+.entropy-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    animation: shimmer 1.5s infinite;
 }
 
 .entropy-text {
     color: var(--neon-blue);
-    font-size: 0.9rem;
+    font-size: 1rem;
     text-align: center;
+    text-shadow: 0 0 10px var(--neon-blue);
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+    0%, 100% { text-shadow: 0 0 10px var(--neon-blue); }
+    50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-pink); }
 }
 
 @keyframes glitch {

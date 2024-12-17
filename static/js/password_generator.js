@@ -42,8 +42,38 @@ class PasswordGenerator {
     updateEntropyMeter(entropy) {
         const maxEntropy = 128;
         const percentage = Math.min((entropy / maxEntropy) * 100, 100);
-        this.entropyValue.textContent = entropy;
+        
+        // Animate the entropy value counting up
+        const currentValue = parseInt(this.entropyValue.textContent);
+        const step = Math.ceil(Math.abs(entropy - currentValue) / 20);
+        let value = currentValue;
+        
+        const animateValue = () => {
+            if (value < entropy) {
+                value = Math.min(value + step, entropy);
+                this.entropyValue.textContent = value;
+                requestAnimationFrame(animateValue);
+            } else if (value > entropy) {
+                value = Math.max(value - step, entropy);
+                this.entropyValue.textContent = value;
+                requestAnimationFrame(animateValue);
+            }
+        };
+        
+        animateValue();
+        
+        // Animate the bar width
         this.entropyBar.style.width = `${percentage}%`;
+        
+        // Trigger particle effects
+        if (window.particleSystem) {
+            window.particleSystem.startEmitting(percentage);
+        }
+        
+        // Update text color based on strength
+        this.entropyValue.style.color = percentage > 80 ? 'var(--neon-blue)' : 
+                                      percentage > 60 ? 'var(--neon-purple)' : 
+                                      'var(--neon-pink)';
     }
 
     async copyToClipboard(text) {
