@@ -36,6 +36,14 @@
                                 <label class="cyber-label">Max Word Length</label>
                                 <input type="number" id="maxLength" class="cyber-input" min="3" max="15" value="8">
                             </div>
+                            <div class="col-md-6">
+                                <label class="cyber-label">Start Letter (optional)</label>
+                                <input type="text" id="startLetter" class="cyber-input" maxlength="1" pattern="[a-zA-Z]" placeholder="e.g. a">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="cyber-label">End Letter (optional)</label>
+                                <input type="text" id="endLetter" class="cyber-input" maxlength="1" pattern="[a-zA-Z]" placeholder="e.g. z">
+                            </div>
                             <div class="col-md-12">
                                 <label class="cyber-label">Delimiter</label>
                                 <select id="delimiter" class="cyber-input">
@@ -198,6 +206,7 @@
     <script src="{{ url_for('static', filename='data/scrabble_words.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sound_effects.js') }}"></script>
     <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/word_filter.js') }}"></script>
     <script src="{{ url_for('static', filename='js/password_generator.js') }}"></script>
 </body>
 </html>

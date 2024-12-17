@@ -9,6 +9,8 @@ class PasswordGenerator {
         this.passwordCountInput = document.getElementById('passwordCount');
         this.minLengthInput = document.getElementById('minLength');
         this.maxLengthInput = document.getElementById('maxLength');
+        this.startLetterInput = document.getElementById('startLetter');
+        this.endLetterInput = document.getElementById('endLetter');
         this.delimiterInput = document.getElementById('delimiter');
         this.generateBtn = document.getElementById('generateBtn');
         this.passwordList = document.getElementById('passwordList');
@@ -25,11 +27,19 @@ class PasswordGenerator {
         });
     }
 
-    getRandomWord(minLength, maxLength) {
-        const filteredWords = SCRABBLE_WORDS.filter(word => 
+    getRandomWord(minLength, maxLength, startLetter, endLetter) {
+        // First filter by length
+        let filteredWords = SCRABBLE_WORDS.filter(word => 
             word.length >= minLength && word.length <= maxLength
         );
-        return filteredWords[Math.floor(Math.random() * filteredWords.length)];
+        
+        // Then apply letter constraints using the word filter function
+        filteredWords = filterWordsByConstraints(filteredWords, startLetter, endLetter);
+        
+        // Return random word from filtered list
+        return filteredWords.length > 0 
+            ? filteredWords[Math.floor(Math.random() * filteredWords.length)]
+            : this.getRandomWord(minLength, maxLength); // Fallback if no words match constraints
     }
 
     calculateEntropy(password) {
@@ -135,8 +145,11 @@ class PasswordGenerator {
         
         for (let i = 0; i < passwordCount; i++) {
             const words = [];
+            const startLetter = validateLetterInput(this.startLetterInput.value);
+            const endLetter = validateLetterInput(this.endLetterInput.value);
+            
             for (let j = 0; j < wordCount; j++) {
-                words.push(this.getRandomWord(minLength, maxLength));
+                words.push(this.getRandomWord(minLength, maxLength, startLetter, endLetter));
             }
             
             const password = words.join(delimiter);
