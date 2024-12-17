@@ -70,6 +70,11 @@ class PasswordGenerator {
             window.particleSystem.startEmitting(percentage);
         }
         
+        // Play sound effect based on strength
+        if (window.soundEffects) {
+            window.soundEffects.playGenerateSound(percentage);
+        }
+        
         // Update text color based on strength
         this.entropyValue.style.color = percentage > 80 ? 'var(--neon-blue)' : 
                                       percentage > 60 ? 'var(--neon-purple)' : 
@@ -80,6 +85,9 @@ class PasswordGenerator {
         try {
             await navigator.clipboard.writeText(text);
             showNotification('Password copied!');
+            if (window.soundEffects) {
+                window.soundEffects.playCopySound();
+            }
         } catch (err) {
             console.error('Failed to copy:', err);
         }
