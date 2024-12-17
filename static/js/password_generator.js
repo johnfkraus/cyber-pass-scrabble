@@ -13,6 +13,7 @@ class PasswordGenerator {
         this.endLetterInput = document.getElementById('endLetter');
         this.delimiterInput = document.getElementById('delimiter');
         this.generateBtn = document.getElementById('generateBtn');
+        this.clearBtn = document.getElementById('clearBtn');
         this.passwordList = document.getElementById('passwordList');
         this.entropyValue = document.getElementById('entropyValue');
         this.entropyBar = document.querySelector('.entropy-bar');
@@ -20,11 +21,17 @@ class PasswordGenerator {
 
     attachEventListeners() {
         this.generateBtn.addEventListener('click', () => this.generatePasswords());
+        this.clearBtn.addEventListener('click', () => this.clearPasswords());
         this.passwordList.addEventListener('click', (e) => {
             if (e.target.classList.contains('password-text')) {
                 this.copyToClipboard(e.target.textContent);
             }
         });
+    }
+
+    clearPasswords() {
+        this.passwordList.innerHTML = '';
+        this.updateEntropyMeter(0);
     }
 
     getRandomWord(minLength, maxLength, startLetter, endLetter) {
@@ -100,16 +107,6 @@ class PasswordGenerator {
             }, 300);
         }
         
-        // Trigger particle effects
-        if (window.particleSystem) {
-            window.particleSystem.startEmitting(percentage);
-        }
-        
-        // Play sound effect based on strength
-        if (window.soundEffects) {
-            window.soundEffects.playGenerateSound(percentage);
-        }
-        
         // Update text color and glow based on strength
         const colors = {
             strong: 'var(--neon-blue)',
@@ -125,10 +122,7 @@ class PasswordGenerator {
     async copyToClipboard(text) {
         try {
             await navigator.clipboard.writeText(text);
-            showNotification('Password copied!');
-            if (window.soundEffects) {
-                window.soundEffects.playCopySound();
-            }
+            // Copy successful
         } catch (err) {
             console.error('Failed to copy:', err);
         }
