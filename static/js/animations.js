@@ -144,3 +144,83 @@ document.addEventListener('DOMContentLoaded', () => {
     // Expose particleSystem globally for use in password_generator.js
     window.particleSystem = particleSystem;
 });
+
+// Tutorial Modal Functionality
+function initTutorial() {
+    const tutorialBtn = document.getElementById('tutorialBtn');
+    const tutorialModal = document.getElementById('tutorialModal');
+    const closeModal = document.querySelector('.close-modal');
+    const prevBtn = document.querySelector('.prev-step');
+    const nextBtn = document.querySelector('.next-step');
+    const steps = document.querySelectorAll('.tutorial-step');
+    const stepIndicator = document.querySelector('.step-indicator');
+    let currentStep = 1;
+
+    function updateStepIndicator() {
+        stepIndicator.textContent = `${currentStep}/3`;
+        prevBtn.disabled = currentStep === 1;
+        nextBtn.textContent = currentStep === 3 ? 'Finish' : 'Next';
+    }
+
+    function showStep(stepNumber) {
+        steps.forEach(step => {
+            step.classList.remove('active');
+            if (parseInt(step.dataset.step) === stepNumber) {
+                step.classList.add('active');
+            }
+        });
+        currentStep = stepNumber;
+        updateStepIndicator();
+    }
+
+    tutorialBtn.addEventListener('click', () => {
+        tutorialModal.style.display = 'block';
+        showStep(1);
+    });
+
+    closeModal.addEventListener('click', () => {
+        tutorialModal.style.display = 'none';
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 1) {
+            showStep(currentStep - 1);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < 3) {
+            showStep(currentStep + 1);
+        } else {
+            tutorialModal.style.display = 'none';
+        }
+    });
+
+    // Close modal when clicking outside
+    tutorialModal.addEventListener('click', (e) => {
+        if (e.target === tutorialModal) {
+            tutorialModal.style.display = 'none';
+        }
+    });
+
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (tutorialModal.style.display === 'block') {
+            if (e.key === 'Escape') {
+                tutorialModal.style.display = 'none';
+            } else if (e.key === 'ArrowRight' && currentStep < 3) {
+                showStep(currentStep + 1);
+            } else if (e.key === 'ArrowLeft' && currentStep > 1) {
+                showStep(currentStep - 1);
+            }
+        }
+    });
+}
+
+// Initialize tutorial when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (existing initialization code)
+    
+    // Initialize tutorial
+    initTutorial();
+});
