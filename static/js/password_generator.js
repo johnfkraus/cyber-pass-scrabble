@@ -43,27 +43,52 @@ class PasswordGenerator {
         const maxEntropy = 128;
         const percentage = Math.min((entropy / maxEntropy) * 100, 100);
         
-        // Animate the entropy value counting up
+        // Animate the entropy value counting up with easing
         const currentValue = parseInt(this.entropyValue.textContent);
-        const step = Math.ceil(Math.abs(entropy - currentValue) / 20);
-        let value = currentValue;
+        const duration = 1000; // 1 second animation
+        const startTime = performance.now();
+        const startValue = currentValue;
+        const endValue = entropy;
         
-        const animateValue = () => {
-            if (value < entropy) {
-                value = Math.min(value + step, entropy);
-                this.entropyValue.textContent = value;
+        const easeOutQuart = x => 1 - Math.pow(1 - x, 4);
+        
+        const animateValue = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            if (progress < 1) {
+                const easedProgress = easeOutQuart(progress);
+                const currentNum = Math.round(startValue + (endValue - startValue) * easedProgress);
+                this.entropyValue.textContent = currentNum;
                 requestAnimationFrame(animateValue);
-            } else if (value > entropy) {
-                value = Math.max(value - step, entropy);
-                this.entropyValue.textContent = value;
-                requestAnimationFrame(animateValue);
+            } else {
+                this.entropyValue.textContent = endValue;
             }
         };
         
-        animateValue();
+        requestAnimationFrame(animateValue);
         
-        // Animate the bar width
+        // Animate the bar width with spring effect
         this.entropyBar.style.width = `${percentage}%`;
+        this.entropyBar.style.transform = 'scaleX(1.05)';
+        setTimeout(() => {
+            this.entropyBar.style.transform = 'scaleX(1)';
+        }, 150);
+        
+        // Update visual feedback based on strength
+        const strengthClass = percentage >= 80 ? 'strong' :
+                            percentage >= 60 ? 'medium' : 'weak';
+                            
+        this.entropyBar.className = `entropy-bar strength-${strengthClass}`;
+        this.entropyValue.className = `entropy-value strength-${strengthClass}`;
+        
+        // Add glitch effect on significant strength changes
+        if (Math.abs(percentage - (currentValue / maxEntropy * 100)) > 20) {
+            this.entropyValue.style.animation = 'glitch 0.3s ease-out';
+            setTimeout(() => {
+                this.entropyValue.style.animation = '';
+            }, 300);
+        }
         
         // Trigger particle effects
         if (window.particleSystem) {
@@ -75,10 +100,16 @@ class PasswordGenerator {
             window.soundEffects.playGenerateSound(percentage);
         }
         
-        // Update text color based on strength
-        this.entropyValue.style.color = percentage > 80 ? 'var(--neon-blue)' : 
-                                      percentage > 60 ? 'var(--neon-purple)' : 
-                                      'var(--neon-pink)';
+        // Update text color and glow based on strength
+        const colors = {
+            strong: 'var(--neon-blue)',
+            medium: 'var(--neon-purple)',
+            weak: 'var(--neon-pink)'
+        };
+        
+        const color = colors[strengthClass];
+        this.entropyValue.style.color = color;
+        this.entropyValue.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
     }
 
     async copyToClipboard(text) {
