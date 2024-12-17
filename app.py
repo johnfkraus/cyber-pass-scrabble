@@ -24,17 +24,24 @@ def check_embargo(f):
         try:
             # Get client IP
             ip_address = request.remote_addr
+            app.logger.debug(f"Checking embargo for IP: {ip_address}")
             
             # Use GeoIP2 database to get country
-            with geoip2.database.Reader('/usr/share/GeoIP/GeoLite2-Country.mmdb') as reader:
+            db_path = os.path.join(os.path.dirname(__file__), 'GeoLite2-Country.mmdb')
+            if not os.path.exists(db_path):
+                app.logger.warning("GeoIP database not found. Skipping embargo check.")
+                return f(*args, **kwargs)
+                
+            with geoip2.database.Reader(db_path) as reader:
                 response = reader.country(ip_address)
                 if response.country.iso_code in EMBARGOED_COUNTRIES:
                     app.logger.warning(f"Blocked request from embargoed country: {response.country.name}")
                     abort(403, f"Access denied from {response.country.name}")
-        except (AddressNotFoundError, FileNotFoundError) as e:
-            app.logger.error(f"GeoIP lookup error: {str(e)}")
-            # Allow request to proceed if we can't determine the country
-            pass
+                app.logger.debug(f"Request allowed from country: {response.country.name}")
+        except AddressNotFoundError:
+            app.logger.warning(f"Could not determine country for IP: {ip_address}")
+        except Exception as e:
+            app.logger.error(f"Unexpected error in embargo check: {str(e)}")
         return f(*args, **kwargs)
     return decorated_function
 
