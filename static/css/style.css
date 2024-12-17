@@ -372,3 +372,48 @@ body {
     50% { width: 70%; }
     100% { width: 30%; }
 }
+
+/* Configuration Modal Styles */
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.config-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.config-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cyber-input {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.cyber-input:focus {
+    outline: none;
+    border-color: var(--neon-blue);
+    box-shadow: 0 0 10px rgba(0, 255, 249, 0.2);
+}
+
+.cyber-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.config-icon {
+    font-size: 1.2rem;
+}

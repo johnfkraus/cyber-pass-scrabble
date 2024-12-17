@@ -65,6 +65,10 @@
                             <span class="tutorial-icon">📚</span>
                             <span class="tutorial-text">Password Guide</span>
                         </button>
+                        <button id="configBtn" class="cyber-button-small">
+                            <span class="config-icon">⚙️</span>
+                            <span class="config-text">Settings</span>
+                        </button>
                         <button id="themeToggle" class="cyber-button-small">
                             <i class="theme-icon"></i>
                             <span class="theme-text">Toggle Theme</span>
@@ -112,6 +116,41 @@
                     <div class="step-indicator">1/3</div>
                     <button class="cyber-button-small next-step">Next</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration Modal -->
+    <div id="configModal" class="cyber-modal">
+        <div class="cyber-modal-content">
+            <div class="cyber-modal-header">
+                <h3>SYSTEM CONFIGURATION</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="cyber-modal-body">
+                <form id="configForm" class="config-form">
+                    <div class="config-group">
+                        <label class="cyber-label">Default Word Count</label>
+                        <input type="number" id="defaultWordCount" class="cyber-input" min="1" max="5" value="3">
+                    </div>
+                    <div class="config-group">
+                        <label class="cyber-label">Default Password Count</label>
+                        <input type="number" id="defaultPasswordCount" class="cyber-input" min="1" max="100" value="5">
+                    </div>
+                    <div class="config-group">
+                        <label class="cyber-label">Default Min Word Length</label>
+                        <input type="number" id="defaultMinLength" class="cyber-input" min="3" max="15" value="4">
+                    </div>
+                    <div class="config-group">
+                        <label class="cyber-label">Default Max Word Length</label>
+                        <input type="number" id="defaultMaxLength" class="cyber-input" min="3" max="15" value="8">
+                    </div>
+                    <div class="config-actions mt-4">
+                        <button type="submit" class="cyber-button">
+                            <span class="cyber-button-text">SAVE CONFIGURATION</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

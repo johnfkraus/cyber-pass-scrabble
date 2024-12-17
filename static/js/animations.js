@@ -217,10 +217,64 @@ function initTutorial() {
     });
 }
 
-// Initialize tutorial when DOM is loaded
+// Configuration Modal Functionality
+function initConfig() {
+    const configBtn = document.getElementById('configBtn');
+    const configModal = document.getElementById('configModal');
+    const configForm = document.getElementById('configForm');
+    const closeConfigModal = configModal.querySelector('.close-modal');
+
+    // Load saved settings
+    function loadSavedSettings() {
+        const settings = JSON.parse(localStorage.getItem('passwordSettings') || '{}');
+        if (settings.wordCount) document.getElementById('defaultWordCount').value = settings.wordCount;
+        if (settings.passwordCount) document.getElementById('defaultPasswordCount').value = settings.passwordCount;
+        if (settings.minLength) document.getElementById('defaultMinLength').value = settings.minLength;
+        if (settings.maxLength) document.getElementById('defaultMaxLength').value = settings.maxLength;
+    }
+
+    // Save settings
+    configForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const settings = {
+            wordCount: parseInt(document.getElementById('defaultWordCount').value),
+            passwordCount: parseInt(document.getElementById('defaultPasswordCount').value),
+            minLength: parseInt(document.getElementById('defaultMinLength').value),
+            maxLength: parseInt(document.getElementById('defaultMaxLength').value)
+        };
+        localStorage.setItem('passwordSettings', JSON.stringify(settings));
+        
+        // Update main form with new defaults
+        document.getElementById('wordCount').value = settings.wordCount;
+        document.getElementById('passwordCount').value = settings.passwordCount;
+        document.getElementById('minLength').value = settings.minLength;
+        document.getElementById('maxLength').value = settings.maxLength;
+        
+        configModal.style.display = 'none';
+        showNotification('Settings saved successfully!');
+    });
+
+    configBtn.addEventListener('click', () => {
+        loadSavedSettings();
+        configModal.style.display = 'block';
+    });
+
+    closeConfigModal.addEventListener('click', () => {
+        configModal.style.display = 'none';
+    });
+
+    configModal.addEventListener('click', (e) => {
+        if (e.target === configModal) {
+            configModal.style.display = 'none';
+        }
+    });
+}
+
+// Initialize tutorial and configuration when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // ... (existing initialization code)
     
-    // Initialize tutorial
+    // Initialize tutorial and config
     initTutorial();
+    initConfig();
 });
