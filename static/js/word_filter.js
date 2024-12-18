@@ -1,7 +1,9 @@
 // Word filtering functions
-function filterWordsByConstraints(words, startLetter, endLetter) {
+function filterWordsByConstraints(words, startLetters, endLetter) {
     return words.filter(word => {
-        const matchesStart = !startLetter || word.toLowerCase().startsWith(startLetter.toLowerCase());
+        // Handle multiple start letters (comma-separated)
+        const startLetterArray = startLetters ? startLetters.toLowerCase().split(',').map(l => l.trim()) : [];
+        const matchesStart = !startLetters || startLetterArray.some(letter => word.toLowerCase().startsWith(letter));
         const matchesEnd = !endLetter || word.toLowerCase().endsWith(endLetter.toLowerCase());
         return matchesStart && matchesEnd;
     });
@@ -10,6 +12,9 @@ function filterWordsByConstraints(words, startLetter, endLetter) {
 // Validate letter input
 function validateLetterInput(input) {
     if (!input) return '';
-    const letter = input.trim().charAt(0);
-    return /^[a-zA-Z]$/.test(letter) ? letter : '';
+    // Split by comma, trim whitespace, filter valid letters
+    return input.split(',')
+        .map(letter => letter.trim())
+        .filter(letter => /^[a-zA-Z]$/.test(letter))
+        .join(',');
 }
