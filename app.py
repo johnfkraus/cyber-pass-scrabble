@@ -7,7 +7,11 @@ from sqlalchemy.orm import DeclarativeBase
 import geoip2.database
 from geoip2.errors import AddressNotFoundError
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # List of embargoed countries (US sanctions list)
 EMBARGOED_COUNTRIES = {

@@ -35,7 +35,9 @@ class PasswordGenerator {
     }
 
     getRandomWord(minLength, maxLength, startLetters, endLetters) {
-        // Validate and normalize inputs
+        console.log(`Getting random word with length ${minLength}-${maxLength}`);
+        
+        // Validate and normalize length constraints
         minLength = Math.max(2, Math.min(minLength, maxLength));
         maxLength = Math.min(15, Math.max(minLength, maxLength));
         
@@ -44,34 +46,45 @@ class PasswordGenerator {
             word.length >= minLength && word.length <= maxLength
         );
         
+        console.log(`Found ${filteredWords.length} words matching length criteria`);
+        
+        // If no words match the length criteria, gradually adjust the range
         if (filteredWords.length === 0) {
-            console.warn(`No words found between lengths ${minLength} and ${maxLength}, adjusting range`);
-            // Gradually expand the range until we find words
-            while (filteredWords.length === 0 && (minLength > 2 || maxLength < 15)) {
-                minLength = Math.max(2, minLength - 1);
-                maxLength = Math.min(15, maxLength + 1);
+            let adjustedMin = minLength;
+            let adjustedMax = maxLength;
+            
+            while (filteredWords.length === 0 && (adjustedMin > 2 || adjustedMax < 15)) {
+                adjustedMin = Math.max(2, adjustedMin - 1);
+                adjustedMax = Math.min(15, adjustedMax + 1);
+                console.log(`Adjusting length range to ${adjustedMin}-${adjustedMax}`);
+                
                 filteredWords = SCRABBLE_WORDS.filter(word => 
-                    word.length >= minLength && word.length <= maxLength
+                    word.length >= adjustedMin && word.length <= adjustedMax
                 );
             }
         }
         
-        // Apply letter constraints using the word filter function
-        if (startLetters || endLetters) {
+        // Apply letter constraints if specified and we have words to filter
+        if ((startLetters || endLetters) && filteredWords.length > 0) {
+            console.log('Applying letter constraints');
             const constrainedWords = filterWordsByConstraints(filteredWords, startLetters, endLetters);
+            
             if (constrainedWords.length > 0) {
+                console.log(`Found ${constrainedWords.length} words matching all constraints`);
                 return constrainedWords[Math.floor(Math.random() * constrainedWords.length)];
             }
-            console.warn(`No words match letter constraints: start=${startLetters}, end=${endLetters}`);
+            
+            console.warn('Letter constraints produced no matches, falling back to length-filtered words');
         }
         
-        // If we have words matching length constraints, use those
+        // Use length-filtered words if available
         if (filteredWords.length > 0) {
+            console.log(`Using ${filteredWords.length} length-filtered words`);
             return filteredWords[Math.floor(Math.random() * filteredWords.length)];
         }
         
         // Ultimate fallback - use any word from the dictionary
-        console.warn('Using fallback word selection');
+        console.warn('No matching words found, using complete dictionary');
         return SCRABBLE_WORDS[Math.floor(Math.random() * SCRABBLE_WORDS.length)];
     }
 
