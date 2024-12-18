@@ -34,19 +34,23 @@ class PasswordGenerator {
         this.updateEntropyMeter(0);
     }
 
-    getRandomWord(minLength, maxLength, startLetter, endLetter) {
+    getRandomWord(minLength, maxLength, startLetters, endLetter) {
         // First filter by length
         let filteredWords = SCRABBLE_WORDS.filter(word => 
             word.length >= minLength && word.length <= maxLength
         );
         
         // Then apply letter constraints using the word filter function
-        filteredWords = filterWordsByConstraints(filteredWords, startLetter, endLetter);
+        filteredWords = filterWordsByConstraints(filteredWords, startLetters, endLetter);
         
         // Return random word from filtered list
-        return filteredWords.length > 0 
-            ? filteredWords[Math.floor(Math.random() * filteredWords.length)]
-            : this.getRandomWord(minLength, maxLength); // Fallback if no words match constraints
+        if (filteredWords.length === 0) {
+            console.warn('No words match the given constraints, using fallback');
+            // Remove constraints and try again
+            return this.getRandomWord(minLength, maxLength, '', '');
+        }
+        
+        return filteredWords[Math.floor(Math.random() * filteredWords.length)];
     }
 
     calculateEntropy(password) {
@@ -135,15 +139,22 @@ class PasswordGenerator {
         const maxLength = parseInt(this.maxLengthInput.value);
         const delimiter = this.delimiterInput.value;
 
+        // Validate inputs
+        if (isNaN(wordCount) || isNaN(passwordCount) || isNaN(minLength) || isNaN(maxLength)) {
+            console.error('Invalid input values');
+            return;
+        }
+
         this.passwordList.innerHTML = '';
         
         for (let i = 0; i < passwordCount; i++) {
             const words = [];
-            const startLetter = validateLetterInput(this.startLetterInput.value);
+            // Handle multiple start letters and single end letter
+            const startLetters = validateLetterInput(this.startLetterInput.value);
             const endLetter = validateLetterInput(this.endLetterInput.value);
             
             for (let j = 0; j < wordCount; j++) {
-                words.push(this.getRandomWord(minLength, maxLength, startLetter, endLetter));
+                words.push(this.getRandomWord(minLength, maxLength, startLetters, endLetter));
             }
             
             const password = words.join(delimiter);
