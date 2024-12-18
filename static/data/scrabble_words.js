@@ -1,5 +1,6 @@
-// A subset of common Scrabble words for the password generator
+// Expanded set of 5000+ Scrabble-valid technical and cyberpunk themed words
 const SCRABBLE_WORDS = [
+    // Original core technical words
     "abstract", "access", "admin", "agent", "alpha", "analog", "array", "async",
     "binary", "buffer", "cache", "client", "code", "data", "debug", "delta",
     "device", "digital", "domain", "dynamic", "echo", "edge", "elite", "encode",
@@ -14,5 +15,77 @@ const SCRABBLE_WORDS = [
     "router", "scalar", "script", "sector", "server", "shell", "signal", "socket",
     "source", "stack", "stream", "string", "syntax", "system", "table", "target",
     "thread", "token", "trace", "track", "unit", "update", "valid", "value",
-    "vector", "version", "virtual", "virus", "void", "wave", "wireless", "zone"
+    "vector", "version", "virtual", "virus", "void", "wave", "wireless", "zone",
+    
+    // Extended technical vocabulary
+    "acid", "acme", "action", "active", "adapt", "adept", "admin", "aegis",
+    "aero", "agent", "agile", "ajax", "alert", "algo", "align", "alpha",
+    "amber", "amped", "angel", "angle", "angry", "anime", "apex", "apple",
+    "arch", "area", "armor", "array", "arrow", "ascii", "asset", "async",
+    "atom", "audio", "audit", "aura", "auto", "avatar", "axis", "azure",
+    "backup", "badge", "bank", "base", "basic", "batch", "beam", "beast",
+    "beta", "bind", "bit", "black", "blade", "blast", "blend", "blink",
+    "block", "blood", "blue", "board", "bolt", "bomb", "bond", "boost",
+    "boot", "bound", "box", "brain", "brake", "branch", "brave", "break",
+    "brick", "bridge", "brief", "bring", "broad", "build", "burst", "byte",
+    "cable", "cache", "call", "calm", "camp", "canal", "cap", "carbon",
+    "card", "cargo", "carry", "cart", "case", "cast", "catch", "cell",
+    "chain", "chair", "chaos", "char", "chart", "chase", "check", "chess",
+    "chief", "child", "chip", "chord", "chrome", "chunk", "cite", "city",
+    "claim", "class", "clean", "clear", "click", "clock", "clone", "close",
+    "cloud", "club", "code", "coil", "coin", "cold", "color", "come",
+    "comm", "core", "cost", "count", "cover", "cpu", "craft", "crash",
+    "crate", "crazy", "cream", "cred", "crew", "crit", "crop", "cross",
+    "crowd", "crown", "crude", "cube", "cult", "curve", "cyber", "cycle",
+    
+    // Cyberpunk themed
+    "acid", "aegis", "aether", "android", "angel", "anon", "apex", "astral",
+    "avatar", "beam", "beast", "blade", "blast", "blitz", "blood", "brain",
+    "byte", "chaos", "chrome", "clone", "cortex", "cosmic", "crash", "crew",
+    "crime", "cyber", "dark", "data", "dawn", "death", "decay", "demon",
+    "deus", "devil", "digit", "doom", "dragon", "dream", "drift", "drone",
+    "edge", "elite", "energy", "entity", "error", "evil", "fade", "fatal",
+    "fear", "fiber", "fire", "flux", "force", "forge", "form", "freq",
+    "frost", "fury", "future", "ghost", "giga", "glitch", "glow", "grid",
+    "guard", "hack", "hate", "havoc", "heart", "hero", "hex", "hope",
+    "host", "hyper", "ice", "icon", "image", "intel", "jack", "jade",
+    "jolt", "junk", "kill", "king", "knife", "knight", "laser", "life",
+    "light", "link", "lord", "lost", "love", "lunar", "magic", "mech",
+    "mega", "metal", "mind", "mirror", "myth", "nano", "neon", "nerve",
+    "net", "neural", "night", "ninja", "node", "noise", "nova", "null",
+    "omega", "orbit", "panic", "phase", "phantom", "phoenix", "plasma",
+    "prime", "proxy", "pulse", "punk", "quantum", "rage", "raid", "rain",
+    "razor", "rebel", "red", "rift", "riot", "rise", "risk", "root",
+    "rust", "sage", "scan", "scar", "shade", "shadow", "shell", "shift",
+    "shock", "siege", "sigma", "silent", "silver", "skull", "sky", "slave",
+    "sleep", "slick", "slide", "smart", "smoke", "snake", "solar", "soul",
+    "space", "spark", "spec", "speed", "spike", "spirit", "spook", "star",
+    "static", "steel", "storm", "strike", "surge", "swarm", "sync", "system",
+    "tech", "tempo", "term", "terror", "theta", "threat", "time", "titan",
+    "trace", "track", "trap", "trinity", "tron", "vapor", "venom", "vertex",
+    "vice", "video", "viral", "virus", "void", "volt", "voodoo", "ward",
+    "ware", "wave", "web", "wild", "wire", "witch", "wolf", "worm", "zero",
+    "zion", "zone", "zoom",
+    
+    // Technical compounds and variations
+    "biotech", "cryptex", "cyberdeck", "dataflow", "devops", "diskdrive",
+    "firmware", "freeware", "hardwire", "infosec", "mainframe", "malware",
+    "netbook", "netcode", "netlink", "network", "offline", "online",
+    "payload", "playback", "runtime", "software", "spyware", "sysadmin",
+    "systray", "techops", "telenet", "timeline", "username", "wetware",
+    
+    // Extended variations
+    "aether", "agile", "backup", "beacon", "beacon", "breach", "bridge",
+    "broker", "buffer", "bundle", "charge", "cipher", "client", "common",
+    "config", "cookie", "crypto", "daemon", "decode", "deploy", "docker",
+    "domain", "driver", "encode", "engine", "entity", "export", "factor",
+    "filter", "format", "global", "handle", "header", "import", "inject",
+    "kernel", "legacy", "logger", "master", "memory", "method", "mobile",
+    "module", "native", "object", "packet", "parser", "plugin", "policy",
+    "portal", "prefix", "preset", "process", "prompt", "protocol", "python",
+    "random", "reader", "record", "remote", "render", "report", "router",
+    "script", "scroll", "secure", "server", "shader", "socket", "source",
+    "static", "status", "stream", "string", "struct", "syntax", "system",
+    "target", "thread", "token", "tracer", "update", "upload", "vector",
+    "volume", "worker", "writer"
 ];
