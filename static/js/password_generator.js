@@ -34,20 +34,26 @@ class PasswordGenerator {
         this.updateEntropyMeter(0);
     }
 
-    getRandomWord(minLength, maxLength, startLetters, endLetter) {
+    getRandomWord(minLength, maxLength, startLetters, endLetter, tryWithoutConstraints = false) {
         // First filter by length
         let filteredWords = SCRABBLE_WORDS.filter(word => 
             word.length >= minLength && word.length <= maxLength
         );
         
-        // Then apply letter constraints using the word filter function
-        filteredWords = filterWordsByConstraints(filteredWords, startLetters, endLetter);
+        if (!tryWithoutConstraints) {
+            // Apply letter constraints using the word filter function
+            filteredWords = filterWordsByConstraints(filteredWords, startLetters, endLetter);
+        }
         
-        // Return random word from filtered list
+        // If no words match the criteria
         if (filteredWords.length === 0) {
-            console.warn('No words match the given constraints, using fallback');
-            // Remove constraints and try again
-            return this.getRandomWord(minLength, maxLength, '', '');
+            if (!tryWithoutConstraints) {
+                console.warn('No words match the given constraints, trying without constraints');
+                return this.getRandomWord(minLength, maxLength, '', '', true);
+            } else {
+                console.error('No words match even without constraints, using defaults');
+                return this.getRandomWord(3, 8, '', '', true);
+            }
         }
         
         return filteredWords[Math.floor(Math.random() * filteredWords.length)];
