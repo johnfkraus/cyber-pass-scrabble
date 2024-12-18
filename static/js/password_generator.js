@@ -133,9 +133,28 @@ class PasswordGenerator {
     async copyToClipboard(text) {
         try {
             await navigator.clipboard.writeText(text);
-            // Copy successful
+            // Show temporary success indicator
+            const indicator = document.createElement('div');
+            indicator.className = 'copy-indicator';
+            indicator.textContent = 'Copied!';
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => {
+                indicator.classList.add('fade-out');
+                setTimeout(() => document.body.removeChild(indicator), 300);
+            }, 1000);
         } catch (err) {
             console.error('Failed to copy:', err);
+            // Show error indicator
+            const indicator = document.createElement('div');
+            indicator.className = 'copy-indicator error';
+            indicator.textContent = 'Copy failed';
+            document.body.appendChild(indicator);
+            
+            setTimeout(() => {
+                indicator.classList.add('fade-out');
+                setTimeout(() => document.body.removeChild(indicator), 300);
+            }, 1000);
         }
     }
 

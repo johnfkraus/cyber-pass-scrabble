@@ -446,3 +446,51 @@ body {
 .config-icon {
     font-size: 1.2rem;
 }
+
+.copy-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--neon-blue);
+    color: var(--bg-primary);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.copy-indicator.error {
+    background: var(--neon-pink);
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+.copy-indicator.fade-out {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+.password-item {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.password-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.password-item:active {
+    transform: translateX(2px);
+}
