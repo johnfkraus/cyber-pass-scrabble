@@ -43,15 +43,10 @@ function filterWordsByConstraints(words, startLetters, endLetters) {
 function validateLetterInput(input) {
     if (!input || typeof input !== 'string') return '';
     
-    if (input.includes(',')) {
-        // Handle multiple letters (for start letters)
-        return input.split(',')
-            .map(letter => letter.trim())
-            .filter(letter => /^[a-zA-Z]$/.test(letter))
-            .join(',');
-    } else {
-        // Handle single letter (for end letter)
-        const letter = input.trim();
-        return /^[a-zA-Z]$/.test(letter) ? letter : '';
-    }
+    // Split by comma, trim whitespace, filter valid letters
+    const letters = input.split(',')
+        .map(letter => letter.trim())
+        .filter(letter => /^[a-zA-Z]$/.test(letter));
+        
+    return letters.join(',');
 }

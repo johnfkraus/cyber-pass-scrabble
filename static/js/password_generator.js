@@ -34,29 +34,30 @@ class PasswordGenerator {
         this.updateEntropyMeter(0);
     }
 
-    getRandomWord(minLength, maxLength, startLetters, endLetter, tryWithoutConstraints = false) {
+    getRandomWord(minLength, maxLength, startLetters, endLetters) {
         // First filter by length
         let filteredWords = SCRABBLE_WORDS.filter(word => 
             word.length >= minLength && word.length <= maxLength
         );
         
-        if (!tryWithoutConstraints) {
-            // Apply letter constraints using the word filter function
-            filteredWords = filterWordsByConstraints(filteredWords, startLetters, endLetter);
+        // Apply letter constraints using the word filter function
+        const constrainedWords = filterWordsByConstraints(filteredWords, startLetters, endLetters);
+        
+        // If words match with constraints, use them
+        if (constrainedWords.length > 0) {
+            return constrainedWords[Math.floor(Math.random() * constrainedWords.length)];
         }
         
-        // If no words match the criteria
-        if (filteredWords.length === 0) {
-            if (!tryWithoutConstraints) {
-                console.warn('No words match the given constraints, trying without constraints');
-                return this.getRandomWord(minLength, maxLength, '', '', true);
-            } else {
-                console.error('No words match even without constraints, using defaults');
-                return this.getRandomWord(3, 8, '', '', true);
-            }
+        // If no words match with constraints, try without letter constraints
+        console.warn('No words match the given constraints, trying without constraints');
+        if (filteredWords.length > 0) {
+            return filteredWords[Math.floor(Math.random() * filteredWords.length)];
         }
         
-        return filteredWords[Math.floor(Math.random() * filteredWords.length)];
+        // If still no words, use default length constraints
+        console.warn('No words match length constraints, using default length range');
+        const defaultWords = SCRABBLE_WORDS.filter(word => word.length >= 3 && word.length <= 8);
+        return defaultWords[Math.floor(Math.random() * defaultWords.length)];
     }
 
     calculateEntropy(password) {
