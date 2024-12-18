@@ -1,8 +1,8 @@
 // Word filtering functions
 function filterWordsByConstraints(words, startLetters, endLetters) {
     // Clean inputs
-    startLetters = (startLetters || '').trim();
-    endLetters = (endLetters || '').trim();
+    startLetters = (startLetters || '').trim().toLowerCase();
+    endLetters = (endLetters || '').trim().toLowerCase();
     
     if (!startLetters && !endLetters) {
         return words;
@@ -12,31 +12,47 @@ function filterWordsByConstraints(words, startLetters, endLetters) {
     
     // Apply start letter filter if specified
     if (startLetters) {
-        const startLetterArray = startLetters.toLowerCase().split(',')
+        const startLetterArray = startLetters.split(',')
             .map(l => l.trim())
-            .filter(l => l.length > 0);
+            .filter(l => l.length === 1 && /^[a-z]$/.test(l));
             
         if (startLetterArray.length > 0) {
-            filteredWords = filteredWords.filter(word => 
-                startLetterArray.some(letter => word.toLowerCase().startsWith(letter))
-            );
+            const filtered = filteredWords.filter(word => {
+                const lowercaseWord = word.toLowerCase();
+                return startLetterArray.some(letter => lowercaseWord.startsWith(letter));
+            });
+            
+            // Only update if we found matches
+            if (filtered.length > 0) {
+                filteredWords = filtered;
+            } else {
+                console.log('No matches found for start letters:', startLetters);
+            }
         }
     }
     
     // Apply end letter filter if specified
     if (endLetters) {
-        const endLetterArray = endLetters.toLowerCase().split(',')
+        const endLetterArray = endLetters.split(',')
             .map(l => l.trim())
-            .filter(l => l.length > 0);
+            .filter(l => l.length === 1 && /^[a-z]$/.test(l));
             
         if (endLetterArray.length > 0) {
-            filteredWords = filteredWords.filter(word => 
-                endLetterArray.some(letter => word.toLowerCase().endsWith(letter))
-            );
+            const filtered = filteredWords.filter(word => {
+                const lowercaseWord = word.toLowerCase();
+                return endLetterArray.some(letter => lowercaseWord.endsWith(letter));
+            });
+            
+            // Only update if we found matches
+            if (filtered.length > 0) {
+                filteredWords = filtered;
+            } else {
+                console.log('No matches found for end letters:', endLetters);
+            }
         }
     }
     
-    return filteredWords;
+    return filteredWords.length > 0 ? filteredWords : words;
 }
 
 // Validate letter input
