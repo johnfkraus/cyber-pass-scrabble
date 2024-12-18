@@ -24,7 +24,7 @@ class PasswordGenerator {
         this.clearBtn.addEventListener('click', () => this.clearPasswords());
         this.passwordList.addEventListener('click', (e) => {
             if (e.target.classList.contains('password-text')) {
-                this.copyToClipboard(e.target.textContent);
+                this.copyToClipboard(e.target.textContent, e.target);
             }
         });
     }
@@ -130,13 +130,20 @@ class PasswordGenerator {
         this.entropyValue.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
     }
 
-    async copyToClipboard(text) {
+    async copyToClipboard(text, clickedElement) {
         try {
             await navigator.clipboard.writeText(text);
             // Show temporary success indicator
             const indicator = document.createElement('div');
             indicator.className = 'copy-indicator';
             indicator.textContent = 'Copied!';
+            
+            // Position the indicator near the clicked password
+            const rect = clickedElement.getBoundingClientRect();
+            indicator.style.position = 'fixed';
+            indicator.style.left = `${rect.right + 10}px`;
+            indicator.style.top = `${rect.top}px`;
+            
             document.body.appendChild(indicator);
             
             setTimeout(() => {
@@ -149,6 +156,13 @@ class PasswordGenerator {
             const indicator = document.createElement('div');
             indicator.className = 'copy-indicator error';
             indicator.textContent = 'Copy failed';
+            
+            // Position the indicator near the clicked password
+            const rect = clickedElement.getBoundingClientRect();
+            indicator.style.position = 'fixed';
+            indicator.style.left = `${rect.right + 10}px`;
+            indicator.style.top = `${rect.top}px`;
+            
             document.body.appendChild(indicator);
             
             setTimeout(() => {
