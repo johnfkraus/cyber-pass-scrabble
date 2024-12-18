@@ -1,10 +1,10 @@
 // Word filtering functions
-function filterWordsByConstraints(words, startLetters, endLetter) {
+function filterWordsByConstraints(words, startLetters, endLetters) {
     // Clean inputs
     startLetters = (startLetters || '').trim();
-    endLetter = (endLetter || '').trim();
+    endLetters = (endLetters || '').trim();
     
-    if (!startLetters && !endLetter) {
+    if (!startLetters && !endLetters) {
         return words;
     }
 
@@ -23,9 +23,16 @@ function filterWordsByConstraints(words, startLetters, endLetter) {
             }
         }
         
-        // Check end letter (if any)
-        if (endLetter && !word.endsWith(endLetter.toLowerCase())) {
-            return false;
+        // Check end letters (if any)
+        if (endLetters) {
+            const endLetterArray = endLetters.toLowerCase().split(',')
+                .map(l => l.trim())
+                .filter(l => l.length > 0);
+                
+            if (endLetterArray.length > 0 && 
+                !endLetterArray.some(letter => word.endsWith(letter))) {
+                return false;
+            }
         }
         
         return true;
