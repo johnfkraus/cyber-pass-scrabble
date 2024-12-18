@@ -8,35 +8,35 @@ function filterWordsByConstraints(words, startLetters, endLetters) {
         return words;
     }
 
-    return words.filter(word => {
-        word = word.toLowerCase();
-        
-        // Check start letters (if any)
-        if (startLetters) {
-            const startLetterArray = startLetters.toLowerCase().split(',')
-                .map(l => l.trim())
-                .filter(l => l.length > 0);
-                
-            if (startLetterArray.length > 0 && 
-                !startLetterArray.some(letter => word.startsWith(letter))) {
-                return false;
-            }
+    let filteredWords = [...words];
+    
+    // Apply start letter filter if specified
+    if (startLetters) {
+        const startLetterArray = startLetters.toLowerCase().split(',')
+            .map(l => l.trim())
+            .filter(l => l.length > 0);
+            
+        if (startLetterArray.length > 0) {
+            filteredWords = filteredWords.filter(word => 
+                startLetterArray.some(letter => word.toLowerCase().startsWith(letter))
+            );
         }
-        
-        // Check end letters (if any)
-        if (endLetters) {
-            const endLetterArray = endLetters.toLowerCase().split(',')
-                .map(l => l.trim())
-                .filter(l => l.length > 0);
-                
-            if (endLetterArray.length > 0 && 
-                !endLetterArray.some(letter => word.endsWith(letter))) {
-                return false;
-            }
+    }
+    
+    // Apply end letter filter if specified
+    if (endLetters) {
+        const endLetterArray = endLetters.toLowerCase().split(',')
+            .map(l => l.trim())
+            .filter(l => l.length > 0);
+            
+        if (endLetterArray.length > 0) {
+            filteredWords = filteredWords.filter(word => 
+                endLetterArray.some(letter => word.toLowerCase().endsWith(letter))
+            );
         }
-        
-        return true;
-    });
+    }
+    
+    return filteredWords;
 }
 
 // Validate letter input
