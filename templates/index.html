@@ -15,14 +15,14 @@
                 <div class="cyber-card">
                     <h1 class="cyber-title text-center mb-4">
                         <span class="neon-text">CYBER</span>PASS
-                        <div class="subtitle">FOR SCRABBLE PLAYERS</div>
+                        <div class="subtitle" style="font-size: 1.2rem;"">Scrabble Edition</div>
                     </h1>
                     
                     <div class="controls-section mb-4">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="cyber-label">Word Length</label>
-                                <input type="number" id="wordCount" class="cyber-input" min="1" max="5" value="5">
+                                <label class="cyber-label">Password Length (# words)</label>
+                                <input type="number" id="wordCount" class="cyber-input" min="1" max="12" value="5">
                             </div>
                             <div class="col-md-6">
                                 <label class="cyber-label">Number of Passwords</label>
@@ -30,11 +30,11 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="cyber-label">Min Word Length</label>
-                                <input type="number" id="minLength" class="cyber-input" min="3" max="15" value="4">
+                                <input type="number" id="minLength" class="cyber-input" min="2" max="7" value="2">
                             </div>
                             <div class="col-md-6">
                                 <label class="cyber-label">Max Word Length</label>
-                                <input type="number" id="maxLength" class="cyber-input" min="3" max="15" value="7">
+                                <input type="number" id="maxLength" class="cyber-input" min="3" max="7" value="7">
                             </div>
                             <div class="col-md-6">
                                 <label class="cyber-label">Start Letter(s) (optional)</label>
@@ -50,6 +50,7 @@
                                     <option value="-">-</option>
                                     <option value="_">_</option>
                                     <option value=".">.</option>
+                                     <option value="+">.</option>
                                     <option value="#">#</option>
                                 </select>
                             </div>
@@ -67,7 +68,7 @@
 
                     <div id="passwordList" class="password-list"></div>
 
-                    <div id="statsSection" class="stats-section mt-4">
+                    <div id="statsSection" class="stats-section mt-4" style="display: none;"">
                         <div class="entropy-meter">
                             <div class="entropy-bar"></div>
                         </div>
@@ -75,10 +76,10 @@
                     </div>
                     
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <button id="aboutBtn" class="cyber-button-small">
+                        <!-- <button id="aboutBtn" class="cyber-button-small">
                             <span class="about-icon">ℹ️</span>
                             <span class="about-text">About</span>
-                        </button>
+                        </button> -->
                         <button id="tutorialBtn" class="cyber-button-small">
                             <span class="tutorial-icon">📚</span>
                             <span class="tutorial-text">Password Guide</span>
@@ -149,10 +150,10 @@
                 <form id="configForm" class="config-form">
                     <div class="config-group">
                         <label class="cyber-label">Default Word Count</label>
-                        <input type="number" id="defaultWordCount" class="cyber-input" min="1" max="5" value="5">
+                        <input type="number" id="defaultWordCount" class="cyber-input" min="1" max="12" value="5">
                     </div>
                     <div class="config-group">
-                        <label class="cyber-label">Default Password Count</label>
+                        <label class="cyber-label">Default Number of Passwords</label>
                         <input type="number" id="defaultPasswordCount" class="cyber-input" min="1" max="100" value="5">
                     </div>
                     <div class="config-group">
