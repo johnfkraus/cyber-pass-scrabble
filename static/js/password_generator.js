@@ -56,7 +56,7 @@ class PasswordGenerator {
         
         // If still no words, use default length constraints
         console.warn('No words match length constraints, using default length range');
-        const defaultWords = SCRABBLE_WORDS.filter(word => word.length >= 3 && word.length <= 8);
+        const defaultWords = SCRABBLE_WORDS.filter(word => word.length >= 3 && word.length <= 7);
         return defaultWords[Math.floor(Math.random() * defaultWords.length)];
     }
 
