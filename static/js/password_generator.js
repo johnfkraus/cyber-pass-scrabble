@@ -88,10 +88,10 @@ class PasswordGenerator {
         return SCRABBLE_WORDS[Math.floor(Math.random() * SCRABBLE_WORDS.length)];
     }
 
-    calculateEntropy(password) {
-        const charset = 26; // lowercase letters
-        const passwordLength = password.replace(/[^a-z]/g, '').length;
-        const entropy = Math.log2(Math.pow(charset, passwordLength));
+    calculateEntropy(passwordCount) {
+        # const charset = 26; // lowercase letters
+        # const passwordLength = password.replace(/[^a-z]/g, '').length;
+        const entropy = passwordCount * Math.log2(SCRABBLE_WORDS.length);
         return Math.round(entropy);
     }
 
