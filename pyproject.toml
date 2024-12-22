@@ -12,4 +12,6 @@ dependencies = [
     "flask-login>=0.6.3",
     "flask-wtf>=1.2.2",
     "geoip2>=4.8.1",
+    "twilio>=9.4.1",
+    "trafilatura>=2.0.0",
 ]

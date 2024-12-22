@@ -6,7 +6,7 @@
     <title>Cyberpunk Password Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
 </head>
 <body class="cyberpunk-bg">
     <div class="container py-5">
@@ -17,7 +17,6 @@
                         <span class="neon-text">CYBER</span>PASS
                         <div class="subtitle" style="font-size: 1.2rem;"">Scrabble Edition</div>
                     </h1>
-                    
                     <div class="controls-section mb-4">
                         <div class="row g-3">
                             <div class="col-md-6">
@@ -50,13 +49,12 @@
                                     <option value="-">-</option>
                                     <option value="_">_</option>
                                     <option value=".">.</option>
-                                     <option value="+">.</option>
+                                    <option value="+">.</option>
                                     <option value="#">#</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-
                     <div class="d-flex gap-3 mb-4">
                         <button id="generateBtn" class="cyber-button">
                             <span class="cyber-button-text">GENERATE</span>
@@ -65,21 +63,14 @@
                             <span class="cyber-button-text">CLEAR</span>
                         </button>
                     </div>
-
                     <div id="passwordList" class="password-list"></div>
-
                     <div id="statsSection" class="stats-section mt-4">
                         <div class="entropy-meter">
                             <div class="entropy-bar"></div>
                         </div>
                         <p class="entropy-text">Password Entropy: <span id="entropyValue">0</span> bits</p>
                     </div>
-                    
                     <div class="d-flex justify-content-between align-items-center mt-4">
-                        <!-- <button id="aboutBtn" class="cyber-button-small">
-                            <span class="about-icon">ℹ️</span>
-                            <span class="about-text">About</span>
-                        </button> -->
                         <button id="tutorialBtn" class="cyber-button-small">
                             <span class="tutorial-icon">📚</span>
                             <span class="tutorial-text">Password Guide</span>
@@ -97,8 +88,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Tutorial Modal -->
     <div id="tutorialModal" class="cyber-modal">
         <div class="cyber-modal-content">
             <div class="cyber-modal-header">
@@ -117,14 +106,16 @@
                     </div>
                     <div class="tutorial-step" data-step="2">
                         <h4>STEP 2: Word Selection</h4>
-                        <p>Unique combinations of tech-inspired words create memorable yet secure passwords.</p>
-                        <div class="tutorial-example">
-                            <div class="word-cloud"></div>
-                        </div>
+                        <p>Unique combinations of Scrabble words create memorable yet secure passwords.</p>
+                        <p>CyberPass extends the approach described by <a href="https://xkcd.com/936/" target="_blank">XKCD.</a></p>
+                        <a href="https://xkcd.com/936/" target="_blank">
+                        <img class="center" src="https://imgs.xkcd.com/comics/password_strength_2x.png" alt="XKCD Password Strength" style="max-width: 70%; height: auto;"/>
+                        </a>
                     </div>
                     <div class="tutorial-step" data-step="3">
                         <h4>STEP 3: Entropy is Power</h4>
                         <p>Watch the entropy meter. Higher bits = stronger defense against cyber threats.</p>
+                        <p>Entropy bits is the number of bits required to represent the number of potential random passwords that could have been generated.  Each word is drawn from a list of 77,459 Scrabble words each containing 2-7 characters. In this app, entropy bits equals the number of words in each password times the log base 2 of 77,459.</p>
                         <div class="tutorial-example">
                             <div class="mini-entropy-meter"></div>
                         </div>
@@ -138,8 +129,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Configuration Modal -->
     <div id="configModal" class="cyber-modal">
         <div class="cyber-modal-content">
             <div class="cyber-modal-header">
@@ -148,20 +137,20 @@
             </div>
             <div class="cyber-modal-body">
                 <form id="configForm" class="config-form">
-                    <div class="config-group">
+                    <div class="config-group" title="The number of words to combine into each password"">
                         <label class="cyber-label">Default Word Count</label>
                         <input type="number" id="defaultWordCount" class="cyber-input" min="1" max="12" value="5">
                     </div>
-                    <div class="config-group">
+                    <div class="config-group" title="How many passwords should be generated.">
                         <label class="cyber-label">Default Number of Passwords</label>
                         <input type="number" id="defaultPasswordCount" class="cyber-input" min="1" max="100" value="5">
                     </div>
-                    <div class="config-group">
+                    <div class="config-group" title="The minimum number of characters in each word.">
                         <label class="cyber-label">Default Min Word Length</label>
                         <input type="number" id="defaultMinLength" class="cyber-input" min="2" max="6" value="4">
                     </div>
                     <div class="config-group">
-                        <label class="cyber-label">Default Max Word Length</label>
+                        <label class="cyber-label" title="The maximum number of characters in each word.">Default Max Word Length</label>
                         <input type="number" id="defaultMaxLength" class="cyber-input" min="3" max="15" value="7">
                     </div>
                     <div class="config-actions mt-4">
@@ -173,8 +162,6 @@
             </div>
         </div>
     </div>
-
-    <!-- About Modal -->
     <div id="aboutModal" class="cyber-modal">
         <div class="cyber-modal-content">
             <div class="cyber-modal-header">
@@ -220,9 +207,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='data/scrabble_words.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/word_filter.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/password_generator.js') }}"></script>
+    <script src="static/data/scrabble_words.js"></script>
+    <script src="static/js/animations.js"></script>
+    <script src="static/js/word_filter.js"></script>
+    <script src="static/js/password_generator.js"></script>
 </body>
 </html>
