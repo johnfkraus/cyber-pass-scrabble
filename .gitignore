@@ -1,0 +1,11 @@
+__pycache__
+app.py
+archives
+generated-icon.png
+main.py
+models.py
+pyproject.toml
+replit.nix
+replit_zip_error_log.txt
+templates
+uv.lock
