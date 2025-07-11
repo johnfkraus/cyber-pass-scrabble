@@ -1,0 +1,47 @@
+
+   Password Recovery - reset instructions sent to
+
+(base)  ✘ ✝  ~/workspaces/cyberpass   static±  surge
+
+   Welcome to surge! (surge.sh)
+   Login or create surge account by entering email & password.
+
+          email: johnkraus3@gmail.com
+       password:
+
+   Running as johnkraus3@gmail.com (Student)
+
+        project: /Users/john.kraus/workspaces/cyberpass/
+         domain: cyberpass-scrabble.surge.sh
+           size: 22 files, 79.0 MB
+         upload: [=========================] 100%
+            CDN: [=========================] 100%
+     encryption: [=========================] 100%
+
+  ┌──────────────────────────────────────────────────────────────────────────────┬────────────────────┐
+  │  Certificate: issuer=C = GB, ST = Greater Manchester, L = Salford, O = Sec…  │  Valid             │
+  │   *.surge.sh, surge.sh                                                       │  145 more days     │
+  └──────────────────────────────────────────────────────────────────────────────┴────────────────────┘
+  ┌──────────┬──────────────────────────────────────────────────────────────────────────────┬─────────┐
+  │          │   ns1.surge.world   ns2.surge.world     or CNAME…                            │         │
+  │    NS    │   ns3.surge.world   ns4.surge.world     geo.surge.world                      │         │
+  ├──────────┼──────────────────┬───────────────────────┬─────────────────────┬─────────────┼─────────┤
+  │   HTTP   │   sfo.surge.sh   │   US, San Francisco   │   138.197.235.123   │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   lhr.surge.sh   │   GB, London          │   46.101.67.123     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   yyz.surge.sh   │   CA, Toronto         │   159.203.50.177    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   jfk.surge.sh   │   US, New York        │   159.203.159.100   │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   ams.surge.sh   │   NL, Amsterdam       │   188.166.132.94    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   fra.surge.sh   │   DE, Frankfurt       │   138.68.112.220    │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   sgp.surge.sh   │   SG, Singapore       │   139.59.195.30     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   blr.surge.sh   │   IN, Bangalore       │   139.59.50.135     │   D.Ocean   │   ✔ ◍   │
+  │   HTTP   │   syd.surge.sh   │   AU, Sydney          │   45.76.126.95      │   Vultr     │   ✔ ◍   │
+  │   HTTP   │   nrt.surge.sh   │   JP, Tokyo           │   172.104.96.133    │   Linode    │   ✔ ◍   │
+  └──────────┴──────────────────┴───────────────────────┴─────────────────────┴─────────────┴─────────┘
+   Live preview ............................................ 1735077895529-cyberpass-scrabble.surge.sh
+   Production ............................................................ cyberpass-scrabble.surge.sh
+
+   Success! - Published to cyberpass-scrabble.surge.sh
+
+(base)  ✝  ~/workspaces/cyberpass   static± 
+
+
